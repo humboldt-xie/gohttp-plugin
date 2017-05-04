@@ -139,6 +139,11 @@ func (p *PluginHttp) UpdatePlugin() {
 var pluginHttp = &PluginHttp{handlers: make(map[string]*PluginHandler), pluginHash: make(map[string]string)}
 
 func main() {
-	pluginHttp.UpdatePlugin()
+	go func() {
+		for {
+			pluginHttp.UpdatePlugin()
+			time.Sleep(time.Second)
+		}
+	}()
 	http.ListenAndServe(":7001", nil)
 }
